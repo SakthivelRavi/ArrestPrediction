@@ -1,5 +1,5 @@
 # Arrest Prediction Project Proposal
-Reuben Rappaport (rbr76), Celine Brass (cjb327), BridgetCheng(bjc267)
+Reuben Rappaport (rbr76), Celine Brass (cjb327), Bridget Cheng(bjc267)
 
 # Problem Description
 The city of Chicago has witnessed a stunning 9,589 crimes reported thus far in the month of September. This is only the tip of the iceberg when you consider the many crimes which go unreported to begin with. The Chicago police force is tasked with securing the safety of its citizens and yet, of the many crimes reported, only a small fraction will eventually result in an arrest. In examining the efficacy of the police, a natural question to ask is which factors determine whether or not a crime will be solved. 
