@@ -28,6 +28,21 @@ The following features are included in the original data set :
 Obviously, we do not want to include all features in our final model. Thus, to get a sense of what features actually affect the arret rate, we made some initial plots as shown below. Below each plot is a brief summary of what it tells us about the relation ship between data. 
 
 # Initial Plots #
+
+![Primary Types Over Time](ArrestPredictionGraphs/PrimaryTypesOverTime.png)
+
 ![Primary Type By Arrest Rate](ArrestPredictionGraphs/PrimaryTypeByArrestRate.png)
+
+![Hour of Day By Total Arrest Count](ArrestPredictionGraphs/HourByTotalArrests.png)
+
+![Day Of Week By Total Arrest](ArrestPredictionGraphs/DayOfWeekByTotalArrests.png)
+
+![Day Of Month By Total Arrests](ArrestPredictionGraphs/DayOfMonthByTotalArrests.png)
+
+![Month By Total Arrest](ArrestPredictionGraphs/MonthByTotalArrest.png)
+
+![Police District By Average Arrest Rates](ArrestPredictionGraphs/DistrictByAverageArrestRate.png)
+
+![Ward By Total Arrest](ArrestPredictionGraphs/WardByTotalArrest.png)
 
 
