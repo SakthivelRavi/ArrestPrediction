@@ -63,8 +63,12 @@ A problem with many predictive models is that they apply an absolute prediction 
 
 For a Logistic Regression all features must be independent binary numeric variables. This influenced our choices during the data cleaning and feature engineering stage of model construction.
 
+To avoid underfitting we attempted to remove features that were useless while generating new features that would provide predictive power (see the Feature Engineering section). To avoid overfitting we made sure to use a _massive_ dataset while limiting the possible complexity of our model. It would quite flatly not be possible for a Logistic Regression to memorize this much data.
+
 ## Feature Engineering and Data Cleaning
 Using the initial data visualizations, we were able to identify which features we believed would be informative to our model. Of the original 22 features present, we chose to completely discard the following features from the dataset: ID, Case Number, IUCR, Block, Beat, Ward, FBI Code, Updated On, X_Coordinate, Y_Coordinate, Longitude, Latitude, and Location.
+
+Of the features only the location related ones had any missing values at all. The Location Description feature had 2828 missing values while District had only 49. The Community Area feature had a whopping 616030 missing values, by far the most of any feature we actually plan to use. However the dataset itself is so large that this is still only a tiny percentage of all samples and poses little problem.
 
 The ID, Case Number, and Updated On features provide no descriptive information about the crime, so they were dropped. Because the IUCR is a numeric encoding of both the Primary Type and Description features, we decided to remove the single IUCR feature in favor of the two distinct categorical features. Since Block, X Coordinate, Y Coordinate, Longitude, Latitude, and Location values are extremely specific location-based values, (there were upwards of 849,571 unique values for Location), it is unlikely that a model would be able to draw useful information from these features. We predicted that because of the variable nature of crime and policing, the beats of Chicago would have shifted over the years. Because of this instability, we felt it would be inappropriate to base our model on the Beat feature. The Ward feature neither reflects the social and demographic features nor the policing activity of an area, so we chose to drop this as well.
 
@@ -77,7 +81,10 @@ To address the Date feature, the first step we took was to segment the string va
 Primary Type, Description, Location Description, and District were categorical features and needed processing to be represented in the dataset as quantitative binary values. To do this, we utilized one-hot encodings for each value that the categorical feature took on. This process, known as creating dummy variables, indicates the presence or absence of a categorical effect. For example, for each of the possible Primary Type values, “Robbery”, “Prostitution”, “Ritualism”, etc., a new feature “Primary_Type_Robbery”, “Primary_Type_Prostitution”, “Primary_Type_Ritualism”, etc. was introduced with a value of 0 or 1 depending on the value of the original Primary Type feature. After the introduction of these dummy variable features, we removed the original Primary Type, Description, Location Description, and District features as a final step.
 
 To limit the size of our data, we decided to use only reports that have taken place in the last 5 years--this left only crimes reported between the years of 2013-present day. Furthermore, we noticed from our visualizations that crimes of particular Primary Type values had arrest rates of nearly 1--we immediately attributed this to the fact that certain crimes would only be reported if an arrest were definitely going to be made, for example, liquor law violations or public indecency violations. We manually inspected the various Primary Type values, and ultimately chose to remove crimes with Primary Type of Gambling, Liquor Law Violation, Prostitution, Narcotics, and Public Indecency.
-After this feature engineering and data processing, we were left with 9,324,840 data samples and 469 features.
+
+After this feature engineering and data processing, we were left with 9,324,840 data samples and 469 features. To make sure that all the features we had generated were linearly independent we created a heatmap. To our delight, there was a strong visible line down the diagonal with little concentration elsewhere.
+
+![Independence Heatmap](ArrestPredictionGraphs/IndependenceGraphs.png)
 
 ## Preliminary Results
 After cleaning up the dataset and running all the feature transformations we split the data 80:20 and trained a logistic regression model. Our preliminary results were quite encouraging!
@@ -96,3 +103,5 @@ Although the model we trained did very well on negative examples, it had poor re
 simply include more years worth of crime.
 
 We're also considering incorporating a new feature to replace the Month feature that we generated. Using the Day of the Year (from 0 to 365) should exhibit the same seasonal trends but at a finer granularity with (hopefully!) more predictive power. Similarly, we're considering the effect of using Community Area as a feature rather than District.
+
+One key advantage provided by the CLEAR dataset is that it's being continuously updated as more crimes occur. Our plan is to download the new data added since we started at the end of the semester and test our model on that as a final indicator of its accuracy.
