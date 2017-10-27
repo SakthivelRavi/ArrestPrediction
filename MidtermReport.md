@@ -42,7 +42,23 @@ The following features are included in the original data set :
 Obviously, we do not want to include all features in our final model. Thus, to get a sense of what features actually affect the arret rate, we made some initial plots as shown below. Below each plot is a brief summary of what it tells us about the relation ship between data.
 
 # Initial Plots #
+
+![Primary Types Over Time](ArrestPredictionGraphs/PrimaryTypesOverTime.png)
+
 ![Primary Type By Arrest Rate](ArrestPredictionGraphs/PrimaryTypeByArrestRate.png)
+
+![Hour of Day By Total Arrest Count](ArrestPredictionGraphs/HourByTotalArrests.png)
+
+![Day Of Week By Total Arrest](ArrestPredictionGraphs/DayOfWeekByTotalArrests.png)
+
+![Day Of Month By Total Arrests](ArrestPredictionGraphs/DayOfMonthByTotalArrests.png)
+
+![Month By Total Arrest](ArrestPredictionGraphs/MonthByTotalArrest.png)
+
+![Police District By Average Arrest Rates](ArrestPredictionGraphs/DistrictByAverageArrestRate.png)
+
+![Ward By Total Arrest](ArrestPredictionGraphs/WardByTotalArrest.png)
+
 
 ## Model Selection
 A problem with many predictive models is that they apply an absolute prediction to each sample. However it is not the case that a crime of a given type committed at a given time and place will deterministically result in an arrest or not. It is perfectly possible for nearly identical crimes to have different outcomes. Based on this structure we wanted to predict the _probability_ that a crime with certain features would lead to an arrest. A natural model to perform this translation between binary outcomes and statistical probabilities is the Logistic Regression so that is what we chose.
