@@ -15,7 +15,7 @@ This sort of analysis could lead to insights into deficiencies in policing - per
 
 The following 22 features are included in the original data set :
 
-* **Arrest** : Whether or not an arrest was made. _This is the output of our logistic regression model._ 
+* **Arrest** : Whether or not an arrest was made. _This is the output of our logistic regression model._
 
 * **ID** : unique identifier for each record
 * **Case Number** : The Chicago Police Depart RD (Records Division) Number
@@ -45,27 +45,27 @@ Obviously, we do not want to include all features in our final model. Thus, to g
 
 ![Primary Types Over Time](ArrestPredictionGraphs/PrimaryTypesOverTime.png)
 
-This plot shows total crime over time, where each color corresponds to a type of crime. You can see that crimes like theft, battery, and criminal damage are very common as compared to other types, however, as a whole crime has drastically decreased in Chicago over the past 15 years. 
+This plot shows total crime over time, where each color corresponds to a type of crime. You can see that crimes like theft, battery, and criminal damage are very common as compared to other types, however, as a whole crime has drastically decreased in Chicago over the past 15 years.
 
 ![Primary Type By Arrest Rate](ArrestPredictionGraphs/PrimaryTypeByArrestRate.png)
 
-This plot gives the average arrest rate of each primary crime type. One can see there are several crimes whose average arrest rate is 1. This is because in the case of crimes like gambling or prostitution, the crime is really only ever reported by the police officer making the arrest. Thus, we eventually ended up leaving out crimes like this as it did not make sense to include them in our model. 
+This plot gives the average arrest rate of each primary crime type. One can see there are several crimes whose average arrest rate is 1. This is because in the case of crimes like gambling or prostitution, the crime is really only ever reported by the police officer making the arrest. Thus, we eventually ended up leaving out crimes like this as it did not make sense to include them in our model.
 
 ![Hour of Day By Total Arrest Count](ArrestPredictionGraphs/HourByTotalArrests.png)
 
-The plot above shows the total number of crimes reported and arrests made during each hour of the day. One can see these rates vary widely by hour, thus we decided hour is a valuable feature to include. 
+The plot above shows the total number of crimes reported and arrests made during each hour of the day. One can see these rates vary widely by hour, thus we decided hour is a valuable feature to include.
 
 ![Day Of Week By Total Arrest](ArrestPredictionGraphs/DayOfWeekByTotalArrests.png)
 
-The above plot shows that the day of the week really has no effect on crime and arrests. Though we were surprised by this graph, it convinced us to not include the day of the week in our model. 
+The above plot shows that the day of the week really has no effect on crime and arrests. Though we were surprised by this graph, it convinced us to not include the day of the week in our model.
 
 ![Day Of Month By Total Arrests](ArrestPredictionGraphs/DayOfMonthByTotalArrests.png)
 
-The above plot shows that the day of the meek really has no effect on crime and arrests. This graph convinced us to not include the day of the week in our model. 
+The above plot shows that the day of the month has little effect on crime. However there's a noticable increase in crime on the first day of each month because this is the default value used for crimes where only the month and not the day is known. There's also a major drop in absolute crime on the 31st day since not all months have 31 days. This graph convinced us to not include the day of the week in our model. 
 
 ![Month By Total Arrest](ArrestPredictionGraphs/MonthByTotalArrests.png)
 
-This graph shows how total crime reported and arrests vary by month. What is surprising about this graph is there is a noticeable increase in crime reported during the summer months, however, there is no corresponding increase in arrests. Thus, month was included as a feature in our final model. 
+This graph shows how total crime reported and arrests vary by month. What is surprising about this graph is there is a noticeable increase in crime reported during the summer months, however, there is no corresponding increase in arrests. Thus, month was included as a feature in our final model.
 
 ![Police District By Average Arrest Rates](ArrestPredictionGraphs/DistrictByAverageArrestRate.png)
 
@@ -73,7 +73,7 @@ This graph shows that average arrest rate varies widely by police district. Sinc
 
 ![Ward By Total Arrest](ArrestPredictionGraphs/WardByTotalArrest.png)
 
-This graph shows that ward experiences similar variety in arrest rate as police district, however, because there are so many wards, we decided we would initially use police districts in our model. 
+This graph shows that ward experiences similar variety in arrest rate as police district, however, because there are so many wards, we decided we would initially use police districts in our model.
 
 ## Model Selection
 A problem with many predictive models is that they apply an absolute prediction to each sample. However it is not the case that a crime of a given type committed at a given time and place will deterministically result in an arrest or not. It is perfectly possible for nearly identical crimes to have different outcomes. Based on this structure we wanted to predict the _probability_ that a crime with certain features would lead to an arrest. A natural model to perform this translation between binary outcomes and statistical probabilities is Logistic Regression, so we utilized the python SKLearn library to calculate an initial Logistic Regression model.
@@ -99,7 +99,7 @@ Primary Type, Description, Location Description, and District were categorical f
 
 To limit the size of our data, we decided to use only reports that have taken place in the last 5 years--this left only crimes reported between the years of 2013-present day. Furthermore, we noticed from our visualizations that crimes of particular Primary Type values had arrest rates of nearly 1--we immediately attributed this to the fact that certain crimes would only be reported if an arrest were definitely going to be made, for example, liquor law violations or public indecency violations. We manually inspected the various Primary Type values, and ultimately chose to remove crimes with Primary Type of Gambling, Liquor Law Violation, Prostitution, Narcotics, and Public Indecency.
 
-After this feature engineering and data processing, we were left with 9,324,840 data samples and 469 features. To make sure that all the features we had generated were linearly independent we created a heatmap or the correlation between variables. To our delight, there was a strong visible line down the diagonal with little concentration elsewhere. This means our variables are largely independent. 
+After this feature engineering and data processing, we were left with 9,324,840 data samples and 469 features. To make sure that all the features we had generated were linearly independent we created a heatmap or the correlation between variables. To our delight, there was a strong visible line down the diagonal with little concentration elsewhere. This means our variables are largely independent.
 
 ![Independence Heatmap](ArrestPredictionGraphs/IndependenceGraphs.png)
 
