@@ -7,10 +7,9 @@
 - Bridget Cheng (bjc267)
 
 ## Introduction
-The city of Chicago has witnessed a stunning 9,589 crimes reported thus far in the month of September. This is only the tip of the iceberg when you consider the many crimes which go unreported to begin with. The Chicago police force is tasked with securing the safety of its citizens and yet, of the many crimes reported, only a small fraction will eventually result in an arrest. In examining the efficacy of the police, a natural question to ask is which factors determine whether or not a crime will be solved.
+We set out to predict the probability of an arrest being made for a crime ocurring at a given time and place in the city of Chicago. Chicago, with its famously high crime rate, and heavy municipal investment in making its data available online is a natural target for analysis of police efficacy. We used the CLEAR dataset, listing all reported crimes from 2001 until the present day (with the exception of murder) to build our model.
 
-This sort of analysis could lead to insights into deficiencies in policing - perhaps certain areas of the city are systematically under policed or certain types of crime are systematically under investigated. Analyzing the nature and features of crimes committed in the past to identify these biases will allow us to improve the dispatchment of our police force and procedures for handling specific types of crime in the future. Specifically we aim to answer the following question: if a crime of a given type occurs at a given time and location in the city of Chicago, will the police eventually arrest someone for it.
-
+This sort of analysis could lead to insights into deficiencies in policing - perhaps certain areas of the city are systematically under policed or certain types of crime are systematically under investigated. Analyzing the nature and features of crimes committed in the past to identify these biases will allow us to improve the dispatchment of our police force and procedures for handling specific types of crime in the future.
 
 ## Feature Analysis
 
@@ -18,7 +17,7 @@ The following features are included in the original data set :
 
 * **ID** : unique identifier for each record
 * **Case Number** : The Chicago Police Depart RD (Records Division) Number
-* **Date** : the date the incident ~supposedly~ occurred
+* **Date** : the date the incident supposedly occurred
 * **Block** : a partially redacted address where the incident occurred, placing it on the same block as the incident
 * **IUCR** : Illinois Uniform Crime Reporting Code. This describes both the primary type of the incident and secondary description. See the full list of IUCR codes here
 * **Primary Type** : the primary description of the IUCR code
@@ -39,9 +38,9 @@ The following features are included in the original data set :
 * **Longitude** : the longitude of the partially redacted location of the incident
 * **Location** : the partially redacted location of the incident in a format suitable for mapping
 
-Obviously, we do not want to include all features in our final model. Thus, to get a sense of what features actually affect the arret rate, we made some initial plots as shown below. Below each plot is a brief summary of what it tells us about the relation ship between data.
+Obviously, we do not want to include all features in our final model. Thus, to get a sense of what features actually affect the arrest rate, we made some initial plots as shown below. Below each plot is a brief summary of what it tells us about the relationship between data.
 
-# Initial Plots #
+# Initial Plots
 
 ![Primary Types Over Time](ArrestPredictionGraphs/PrimaryTypesOverTime.png)
 
@@ -53,12 +52,11 @@ Obviously, we do not want to include all features in our final model. Thus, to g
 
 ![Day Of Month By Total Arrests](ArrestPredictionGraphs/DayOfMonthByTotalArrests.png)
 
-![Month By Total Arrest](ArrestPredictionGraphs/MonthByTotalArrest.png)
+![Month By Total Arrest](ArrestPredictionGraphs/MonthByTotalArrests.png)
 
 ![Police District By Average Arrest Rates](ArrestPredictionGraphs/DistrictByAverageArrestRate.png)
 
 ![Ward By Total Arrest](ArrestPredictionGraphs/WardByTotalArrest.png)
-
 
 ## Model Selection
 A problem with many predictive models is that they apply an absolute prediction to each sample. However it is not the case that a crime of a given type committed at a given time and place will deterministically result in an arrest or not. It is perfectly possible for nearly identical crimes to have different outcomes. Based on this structure we wanted to predict the _probability_ that a crime with certain features would lead to an arrest. A natural model to perform this translation between binary outcomes and statistical probabilities is the Logistic Regression so that is what we chose.
@@ -76,19 +74,25 @@ Of these remaining features, Arrest and Domestic were already binary valued, and
 
 To address the Date feature, the first step we took was to segment the string value into two new features, Hour and Month. We chose to disregard the Day of Month and Day of Week features initially used in the visualizations, as we saw the distribution of arrests was almost uniform over days of the month and days of the week. Furthermore, because representing hour and month as integers does not represent the cyclic nature of these values, we cleverly applied a sine and cosine transformation function to the values, so that the closeness of values like 0 and 23 in the hours of a day is captured despite a large numerical difference. This introduced four new features, Sin Hour, Cos Hour, Sin Month, and Cos Month. We removed the original Date feature as a final step.
 
-Primary Type, Description, Location Description, and District were categorical features and needed processing to be represented in the dataset as quantitative binary values. To do this, we utilized one-hot encodings for each value that the categorical feature took on. This process, known as creating dummy variables, indicates the presence or absence of a categorical effect. For example, for each of the possibly Primary Type values, “Robbery”, “Prostitution”, “Ritualism”, etc., a new feature “Primary_Type_Robbery”, “Primary_Type_Prostitution”, “Primary_Type_Ritualism”, etc. was introduced with a value of 0 or 1 depending on the value of the original Primary Type feature. After the introduction of these dummy variable features, we removed the original Primary Type, Description, Location Description, and District features as a final step.
+Primary Type, Description, Location Description, and District were categorical features and needed processing to be represented in the dataset as quantitative binary values. To do this, we utilized one-hot encodings for each value that the categorical feature took on. This process, known as creating dummy variables, indicates the presence or absence of a categorical effect. For example, for each of the possible Primary Type values, “Robbery”, “Prostitution”, “Ritualism”, etc., a new feature “Primary_Type_Robbery”, “Primary_Type_Prostitution”, “Primary_Type_Ritualism”, etc. was introduced with a value of 0 or 1 depending on the value of the original Primary Type feature. After the introduction of these dummy variable features, we removed the original Primary Type, Description, Location Description, and District features as a final step.
+
 To limit the size of our data, we decided to use only reports that have taken place in the last 5 years--this left only crimes reported between the years of 2013-present day. Furthermore, we noticed from our visualizations that crimes of particular Primary Type values had arrest rates of nearly 1--we immediately attributed this to the fact that certain crimes would only be reported if an arrest were definitely going to be made, for example, liquor law violations or public indecency violations. We manually inspected the various Primary Type values, and ultimately chose to remove crimes with Primary Type of Gambling, Liquor Law Violation, Prostitution, Narcotics, and Public Indecency.
 After this feature engineering and data processing, we were left with 9,324,840 data samples and 469 features.
 
 ## Preliminary Results
 After cleaning up the dataset and running all the feature transformations we split the data 80:20 and trained a logistic regression model. Our preliminary results were quite encouraging!
+
 ```
-              precision     recall    f1-score       support
-          0        0.89       0.98        0.93        154420
-          1        0.80       0.41        0.54         32077
-avg / total        0.87       0.88        0.86        186497
+              precision    recall    f1-score    support
+          0        0.89      0.98        0.93     154420
+          1        0.80      0.41        0.54      32077
+avg / total        0.87      0.88        0.86     186497
 ```
-Overall the model was quite accurate with a high average score. Its precision and recall were excellent on negative results. However due to the dearth of positive results in the sample (there are almost five times as many negative results as positive ones!) the classifier has extremely poor recall on positive examples. This is something of a fundamental structural problem in the dataset since the majority of crime reports do not end with an arrest. We’ll need to take steps to address it going forward.
+
+Overall the model was quite accurate with a high average score. Its precision and recall were excellent on crimes without an arrest. However due to the dearth of arrests in the sample (there are almost five times as many non-arrests  as arrests!) the classifier has extremely poor recall on crimes with an arrest. This is something of a fundamental structural problem in the dataset since the majority of crime reports do not end with an arrest. We’ll need to take steps to address it going forward.
 
 ## Going Forward
-Although the model we trained did very well on negative examples, it had poor recall on positive examples due to their serious underrepresentation in the dataset. Our next step is going to be to look into more sophisticated sampling techniques we could use to counteract this. We’re thinking of possibly using stratified sampling to place an outsized emphasis on positive samples relative to their actual incidence.
+Although the model we trained did very well on negative examples, it had poor recall on positive examples due to their serious underrepresentation in the dataset. Our next step is going to be to look into more sophisticated sampling techniques we could use to counteract this. We’re thinking of possibly using stratified sampling to place an outsized emphasis on positive samples relative to their actual incidence. Another way to get more arrests in the dataset is to
+simply include more years worth of crime.
+
+We're also considering incorporating a new feature to replace the Month feature that we generated. Using the Day of the Year (from 0 to 365) should exhibit the same seasonal trends but at a finer granularity with (hopefully!) more predictive power. Similarly, we're considering the effect of using Community Area as a feature rather than District.
