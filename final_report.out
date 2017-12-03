@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Exploratory Data Analysis}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{CLEAR Dataset}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Features}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Data Visualizations}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Data Cleaning}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Discarded Features}{subsection.2.4}% 7
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Time and Date Segmentation}{subsection.2.4}% 8
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Categorical to Quantitative Data}{subsection.2.4}% 9
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Limiting the Data}{subsection.2.4}% 10
+\BOOKMARK [1][-]{section.3}{Model Selection}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Logistic Regression}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Gaussian Naive Bayes}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Decision Tree}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Results}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Logistic Regression}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Gaussian Naive Bayes}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{Decision Tree}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.4}{Discussion of Results}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.5}{In Plain English}{section.4}% 20
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 21
+\BOOKMARK [1][-]{section.6}{References}{}% 22

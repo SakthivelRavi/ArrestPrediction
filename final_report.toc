@@ -1,0 +1,19 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Exploratory Data Analysis}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}CLEAR Dataset}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Features}{1}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Data Visualizations}{2}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Data Cleaning}{2}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Discarded Features}{2}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Time and Date Segmentation}{2}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Categorical to Quantitative Data}{2}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}Limiting the Data}{2}{subsubsection.2.4.4}
+\contentsline {subsection}{\numberline {2.5}Evaluation of Results}{2}{subsection.2.5}
+\contentsline {section}{\numberline {3}Model Selection}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Logistic Regression}{2}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Decision Trees}{3}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Naive Bayes}{3}{subsection.3.3}
+\contentsline {section}{\numberline {4}Results}{3}{section.4}
+\contentsline {section}{\numberline {5}Conclusion}{3}{section.5}
+\contentsfinish 
